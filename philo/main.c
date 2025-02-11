@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:30:08 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/06 17:10:06 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:42:28 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,33 @@ void	print_error(char *arg)
 {
 	perror(arg);
 	exit(1);
+}
+
+void	init_philos(t_general *g)
+{
+	int	i;
+
+	i = 0;
+	g->tid = malloc(sizeof(pthread_t) * g->num);
+	if (!g->tid)
+		print_error("Malloc error");
+	g->forks = malloc(sizeof(pthread_mutex_t) * g->num);
+	if (!g->forks)
+		print_error("Malloc error");
+	g->philos = malloc(sizeof(t_philo) * g->num);
+	if (!g->philos)
+		print_error("Malloc error");
+	while (i < g->num)
+	{
+		g->philos[i].general = g;
+		g->philos[i].id = i + 1;
+		g->philos[i].t_die = g->t_die;
+		g->philos[i].eat_cont = 0;
+		g->philos[i].eating = 0;
+		g->philos[i].status = 0;
+		pthread_mutex_init(&g->philos[i].lock, NULL);
+		i++;
+	}
 }
 
 int	init_and_errs(t_general *g, int argc, char **argv)
@@ -30,9 +57,9 @@ int	init_and_errs(t_general *g, int argc, char **argv)
 	g->t_die = ft_atoi(argv[2]);
 	g->t_eat = ft_atoi(argv[3]);
 	g->t_sleep = ft_atoi(argv[4]);
-	
 	if (argc == 6)
 		g->num_t_eat = ft_atoi(argv[5]);
+	init_philos(g);
 	return (0);
 }
 int main(int argc, char **argv)
