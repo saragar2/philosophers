@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:30:08 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/11 19:42:28 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:58:52 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,31 @@ void	print_error(char *arg)
 	exit(1);
 }
 
+int	init_forks(t_general *g)
+{
+	int	i;
+
+	i = -1;
+	while (++i < g->num)
+		pthread_mutex_init(&g->forks[i], NULL);
+	i = 0;
+	g->philos[0].left = &g->forks[0];
+	g->philos[0].right = &g->forks[g->num - 1];
+	i = 1;
+	while (i < g->num)
+	{
+		g->philos[i].left = &g->forks[i];
+		g->philos[i].right = &g->forks[i - 1];
+		i++;
+	}
+	return (0);
+}
+
 void	init_philos(t_general *g)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	g->tid = malloc(sizeof(pthread_t) * g->num);
 	if (!g->tid)
 		print_error("Malloc error");
@@ -32,7 +52,7 @@ void	init_philos(t_general *g)
 	g->philos = malloc(sizeof(t_philo) * g->num);
 	if (!g->philos)
 		print_error("Malloc error");
-	while (i < g->num)
+	while (++i < g->num)
 	{
 		g->philos[i].general = g;
 		g->philos[i].id = i + 1;
@@ -41,7 +61,6 @@ void	init_philos(t_general *g)
 		g->philos[i].eating = 0;
 		g->philos[i].status = 0;
 		pthread_mutex_init(&g->philos[i].lock, NULL);
-		i++;
 	}
 }
 
@@ -59,9 +78,11 @@ int	init_and_errs(t_general *g, int argc, char **argv)
 	g->t_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		g->num_t_eat = ft_atoi(argv[5]);
+	init_forks(g);
 	init_philos(g);
 	return (0);
 }
+
 int main(int argc, char **argv)
 {
 	t_general	g;
