@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isvalidnum.c                                    :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 18:24:33 by saragar2          #+#    #+#             */
-/*   Updated: 2025/01/29 18:57:50 by saragar2         ###   ########.fr       */
+/*   Created: 2025/02/12 16:16:25 by saragar2          #+#    #+#             */
+/*   Updated: 2025/02/12 16:16:41 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int ft_isvalidnum(char *s)
+u_int64_t	get_time(void)
 {
-    int i;
+	struct timeval	tv;
 
-	i = 0;
-	while(s[i])
-	{
-		if (s[i] < '0' || s[i] > '9')
-			return (1);
-		i++;
-	}
-	return (0);
+	if (gettimeofday(&tv, NULL))
+		return (error("gettimeofday() FAILURE\n", NULL));
+	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
 }

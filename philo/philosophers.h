@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/11 19:26:42 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:15:53 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <pthread.h>
+# include <sys/time.h>
 
 typedef struct s_general
 {
@@ -46,6 +47,7 @@ typedef struct s_philo
 	int					eating;
 	int					status;
 	pthread_mutex_t		lock;
+	u_int64_t			stime;
 }				t_philo;
 
 // ------------------------------------------------------------parsing
