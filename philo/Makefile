@@ -1,5 +1,5 @@
 NAME = philo
-SRCS = main.c ft_isvalidnum.c ft_atoi.c
+SRCS = main.c time.c utils.c
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 REMOVE = rm -f

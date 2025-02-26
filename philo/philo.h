@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/12 16:15:53 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:19:53 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -25,9 +25,12 @@
 typedef struct s_general
 {
 	pthread_t		*tid;
-	t_philo			*philos;
+	struct s_philo	*philos;
 	pthread_mutex_t	*forks;
-	int				num;
+	int				start;
+	int				end;
+	u_int64_t		stime;
+	int				num_philos;
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
@@ -36,18 +39,16 @@ typedef struct s_general
 
 typedef struct s_philo
 {
-	t_general			*general;
 	int	    			id;
 	pthread_t			thread;
-	pthread_mutex_t		fork;
-	struct s_philo		right;
-	struct s_philo		left;
 	int					t_die;
 	int					eat_cont;
-	int					eating;
 	int					status;
-	pthread_mutex_t		lock;
-	u_int64_t			stime;
+	pthread_mutex_t		*right;
+	pthread_mutex_t		*left;
+	pthread_mutex_t		dead_lock;
+	pthread_mutex_t		meal_lock;
+	pthread_mutex_t		write_lock;
 }				t_philo;
 
 // ------------------------------------------------------------parsing

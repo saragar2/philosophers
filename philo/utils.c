@@ -6,15 +6,16 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:18:26 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/12 16:19:01 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:01:20 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 int ft_isvalidnum(char *s)
 {
     int i;
+	int	res;
 
 	i = 0;
 	while(s[i])
@@ -23,6 +24,9 @@ int ft_isvalidnum(char *s)
 			return (1);
 		i++;
 	}
+	res = ft_atoi(s);
+	if (res <= 0)
+		return (1);
 	return (0);
 }
 
@@ -48,5 +52,7 @@ int	ft_atoi(const char *str)
 		nb = nb * 10 + (*str - '0');
 		str++;
 	}
+	if (nb * minus <= 0)
+		print_error("You can't use 0");
 	return (nb * minus);
 }

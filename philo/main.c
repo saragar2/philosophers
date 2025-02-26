@@ -6,11 +6,11 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:30:08 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/11 19:58:52 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:51:04 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 void	print_error(char *arg)
 {
@@ -23,13 +23,16 @@ int	init_forks(t_general *g)
 	int	i;
 
 	i = -1;
-	while (++i < g->num)
+	g->forks = malloc(sizeof(pthread_mutex_t) * g->num_philos);
+	if (!g->forks)
+		print_error("Malloc error: forks");
+	while (++i < g->num_philos)
 		pthread_mutex_init(&g->forks[i], NULL);
-	i = 0;
+	i = 0; //--------------------------------------------------------rarete
 	g->philos[0].left = &g->forks[0];
-	g->philos[0].right = &g->forks[g->num - 1];
+	g->philos[0].right = &g->forks[g->num_philos - 1];
 	i = 1;
-	while (i < g->num)
+	while (i < g->num_philos)
 	{
 		g->philos[i].left = &g->forks[i];
 		g->philos[i].right = &g->forks[i - 1];
@@ -43,22 +46,17 @@ void	init_philos(t_general *g)
 	int	i;
 
 	i = -1;
-	g->tid = malloc(sizeof(pthread_t) * g->num);
+	g->tid = malloc(sizeof(pthread_t) * g->num_philos);
 	if (!g->tid)
 		print_error("Malloc error");
-	g->forks = malloc(sizeof(pthread_mutex_t) * g->num);
-	if (!g->forks)
-		print_error("Malloc error");
-	g->philos = malloc(sizeof(t_philo) * g->num);
+	g->philos = malloc(sizeof(t_philo) * g->num_philos);
 	if (!g->philos)
 		print_error("Malloc error");
-	while (++i < g->num)
+	while (++i < g->num_philos)
 	{
-		g->philos[i].general = g;
 		g->philos[i].id = i + 1;
 		g->philos[i].t_die = g->t_die;
 		g->philos[i].eat_cont = 0;
-		g->philos[i].eating = 0;
 		g->philos[i].status = 0;
 		pthread_mutex_init(&g->philos[i].lock, NULL);
 	}
@@ -72,7 +70,10 @@ int	init_and_errs(t_general *g, int argc, char **argv)
 		ft_isvalidnum(argv[3]) == 1 || ft_isvalidnum(argv[4]) == 1 ||
 		(argc == 6 && ft_isvalidnum(argv[5]) == 1))
 		print_error("Invalid argument");
-	g->num = ft_atoi(argv[1]);
+	g->start = 0;
+	g->end = 0;
+	g-> stime = 0;
+	g->num_philos = ft_atoi(argv[1]);
 	g->t_die = ft_atoi(argv[2]);
 	g->t_eat = ft_atoi(argv[3]);
 	g->t_sleep = ft_atoi(argv[4]);
@@ -85,10 +86,17 @@ int	init_and_errs(t_general *g, int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	t_general	g;
+// 	t_general	g;
 
-	init_and_errs(&g, argc, argv);
-		
+// 	init_and_errs(&g, argc, argv);
+	if (!ft_isvalidnum(argv[1]))
+		printf("yayy 1\n\n");
+	if (!ft_isvalidnum(argv[2]))
+		printf("yayy 2\n\n");
+	if (!ft_isvalidnum(argv[3]))
+		printf("yayy 3\n\n");
+	if (!ft_isvalidnum(argv[4]))
+		printf("yayy 4\n\n");
 }
 
 
