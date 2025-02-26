@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/26 19:19:53 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:39:58 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 typedef struct s_general
 {
-	pthread_t		*tid;
-	struct s_philo	*philos;
+	pthread_t		*tid; //sin inicializar (malloc hecho en init_philos() pero sin contenido)
+	struct s_philo	*philos; //sin inicializar (malloc hecho en init_philos() pero sin contenido)
 	pthread_mutex_t	*forks;
 	int				start;
 	int				end;
@@ -40,7 +40,7 @@ typedef struct s_general
 typedef struct s_philo
 {
 	int	    			id;
-	pthread_t			thread;
+	pthread_t			thread; //sin inicializar
 	int					t_die;
 	int					eat_cont;
 	int					status;
@@ -52,10 +52,19 @@ typedef struct s_philo
 }				t_philo;
 
 // ------------------------------------------------------------parsing
-void	print_error(char *arg);
-int		init_and_errs(t_general *g, int argc, char **argv);
+void		print_error(char *arg);
+int			init_and_errs(t_general *g, int argc, char **argv);
+int			init_forks(t_general *g);
+void		init_philos(t_general *g);
+// ------------------------------------------------------------threads MODIFICA LOS ARGS PLS
+void		one_philo(t_general *g);
+void		busybody_pakita();
+void		routine();
+void		create_philos();
+// ------------------------------------------------------------time
+u_int64_t	get_time(void); //COMO QUE OID A SECAS????
 // ------------------------------------------------------------utils
-int		ft_atoi(const char *str);
-int 	ft_isvalidnum(char *s);
+int			ft_atoi(const char *str);
+int 		ft_isvalidnum(char *s);
 
 #endif
