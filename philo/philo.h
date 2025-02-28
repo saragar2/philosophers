@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/26 21:39:58 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:35:09 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef struct s_general
 {
-	pthread_t		*tid; //sin inicializar (malloc hecho en init_philos() pero sin contenido)
+	pthread_t		*tid;
 	struct s_philo	*philos; //sin inicializar (malloc hecho en init_philos() pero sin contenido)
 	pthread_mutex_t	*forks;
 	int				start;
@@ -62,7 +62,7 @@ void		busybody_pakita();
 void		routine();
 void		create_philos();
 // ------------------------------------------------------------time
-u_int64_t	get_time(void); //COMO QUE OID A SECAS????
+u_int64_t	get_time(void); //COMO QUE VOID A SECAS????
 // ------------------------------------------------------------utils
 int			ft_atoi(const char *str);
 int 		ft_isvalidnum(char *s);

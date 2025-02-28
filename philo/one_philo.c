@@ -6,13 +6,13 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:10:27 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/25 17:52:44 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:13:44 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// void	one_philo(t_general *g)
-// {
+void	one_philo(t_general *g)
+{
 
-// }
+}

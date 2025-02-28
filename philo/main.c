@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:30:08 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/26 20:08:25 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:38:59 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,9 @@ int main(int argc, char **argv)
 }
 
 
-// rutinaq
+// -----NOTAS-----
+// Hay que hacer los free de todos los malloc en caso de error y al finalizar el programa
+// Hay que hacer la rutina y programar a pakita la cotilla
+// hay que hardcodear el caso del filosofo solo
+// como putas se usan g->philos y philo->thread????
+// Norminette

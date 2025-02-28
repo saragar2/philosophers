@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:09:13 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/26 20:09:42 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:24:15 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	init_forks(t_general *g)
 		print_error("Malloc error: forks");
 	while (++i < g->num_philos)
 		pthread_mutex_init(&g->forks[i], NULL);
-	i = 0; //--------------------------------------------------------rarete
 	g->philos[0].left = &g->forks[0];
 	g->philos[0].right = &g->forks[g->num_philos - 1];
 	i = 1;
@@ -42,10 +41,10 @@ void	init_philos(t_general *g)
 	i = -1;
 	g->tid = malloc(sizeof(pthread_t) * g->num_philos);
 	if (!g->tid)
-		print_error("Malloc error");
+		print_error("Malloc error: tid");
 	g->philos = malloc(sizeof(t_philo) * g->num_philos);
 	if (!g->philos)
-		print_error("Malloc error");
+		print_error("Malloc error: philos");
 	while (++i < g->num_philos)
 	{
 		g->philos[i].id = i + 1;
