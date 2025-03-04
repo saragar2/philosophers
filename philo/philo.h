@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/27 20:35:09 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:26:34 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,9 @@ u_int64_t	get_time(void); //COMO QUE VOID A SECAS????
 // ------------------------------------------------------------utils
 int			ft_atoi(const char *str);
 int 		ft_isvalidnum(char *s);
+// ------------------------------------------------------------activities MODIFICA LOS ARGS PLS
+void		comer_techo();
+void		lonchazo();
+void		limpiar_el_cristal();
 
 #endif

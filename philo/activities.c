@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
+/*   activities.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 20:31:06 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/28 17:20:06 by saragar2         ###   ########.fr       */
+/*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
+/*   Updated: 2025/02/28 17:24:12 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	busybody_pakita()
-{
-    
-}
-
-void	routine()
+void	comer_techo()
 {
 	
 }
 
-void	create_philos(t_general *g)
+void	lonchazo()
 {
-	int i;
+	
+}
 
-    i = -1;
-    g->stime = get_time();
-	while (++i < g->num_philos)
-	{
-        pthread_create(g->tid[i], NULL, &routine, ); // -------falta el arg de la rutina
-		usleep(1);
-	}
-    while (++i < g->num_philos)
-		pthread_join(g->tid[i], NULL);
+void	limpiar_el_cristal()
+{
+
 }
