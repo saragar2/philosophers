@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:18:26 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/26 19:01:20 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:39:37 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,19 @@ int	ft_atoi(const char *str)
 	if (nb * minus <= 0)
 		print_error("You can't use 0");
 	return (nb * minus);
+}
+
+int	f_strcmp(const char *s1, const char *s2)
+{
+	int	cont;
+
+	cont = 0;
+	while (*s1 == *s2 && *s1 != '\0')
+	{
+		s1++;
+		s2++;
+	}
+	if (*s1 != *s2)
+		cont = (unsigned char)*s1 - (unsigned char)*s2;
+	return (cont);
 }

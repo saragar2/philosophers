@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   activities.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/04 18:02:57 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:22:48 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	print_status(char *s, t_general *g, t_philo *p)
+{
+	size_t	t;
+	
+	pthread_mutex_lock(p->write_lock);
+	t = get_time() - g->stime;
+	if (f_strcmp(s, "fork"))
+		printf("%s[%u] %d  has taken a fork", PINK, t, p->id);
+	else if (f_strcmp(s, "eat"))
+		printf("%s[%u] %d  is eating", BLUE, t, p->id);
+	else if (f_strcmp(s, "sleep"))
+		printf("%s[%u] %d  is sleeping", GREEN, t, p->id);
+	else if (f_strcmp(s, "think"))
+		printf("%s[%u] %d  is thinking", YELLOW, t, p->id);
+	else if (f_strcmp(s, "dead"))
+		printf("%s[%u] %d  died", PURPLE, t, p->id);
+	pthread_mutex_unlock(p->write_lock);
+}
 
 void	comer_techo(size_t milis)
 {

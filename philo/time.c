@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:16:25 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/04 18:07:53 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:28:29 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-u_int64_t	get_time(void)
+u_int64_t	get_time()
 {
 	u_int64_t		time;
 	struct timeval	tv;
