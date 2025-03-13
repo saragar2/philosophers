@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   activities.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/05 20:22:48 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:56:26 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ void	print_status(char *s, t_general *g, t_philo *p)
 	pthread_mutex_unlock(p->write_lock);
 }
 
-void	comer_techo(size_t milis)
+void	comer_techo(size_t milis, t_general *g, t_philo *p)
 {
 	size_t	start;
 
+	print_status("sleep", g, p);
 	start = get_time();
 	while ((get_time() - start) < milis)
 		usleep(500); //por que 500????
@@ -45,7 +46,7 @@ void	lonchazo()
 	
 }
 
-void	limpiar_el_cristal()
+void	pintarlas(t_general *g, t_philo *p)
 {
-
+	print_status("think", g, p);
 }

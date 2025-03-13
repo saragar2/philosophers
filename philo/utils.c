@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:18:26 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/13 18:22:09 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:30:53 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,14 @@ int ft_isvalidnum(char *s)
 size_t	ft_atoi(const char *str)
 {
 	size_t	nb;
-	int		minus;
 
 	nb = 0;
-	minus = 1;
 	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
 	if (*str == '+' || *str == '-')
 	{
 		if (*(str + 1) == '+' || *(str + 1) == '-')
-			return (0);
-		else if (*str == '-')
-			minus = -1;
+			print_error("Atoi error: more than one sign");
 		str++;
 	}
 	while (*str >= 48 && *str <= 57)
@@ -52,9 +48,9 @@ size_t	ft_atoi(const char *str)
 		nb = nb * 10 + (*str - '0');
 		str++;
 	}
-	if (nb * minus <= 0)
+	if (nb <= 0)
 		print_error("You can't use 0");
-	return (nb * minus);
+	return (nb);
 }
 
 int	f_strcmp(const char *s1, const char *s2)
