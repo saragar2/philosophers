@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:09:13 by saragar2          #+#    #+#             */
-/*   Updated: 2025/02/27 18:24:15 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:19:10 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	init_and_errs(t_general *g, int argc, char **argv)
 	g->t_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		g->num_t_eat = ft_atoi(argv[5]);
+	else
+		g->num_t_eat = -1;
 	init_forks(g);
 	init_philos(g);
 	return (0);

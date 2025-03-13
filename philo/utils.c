@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:18:26 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/05 18:39:37 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:22:09 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int ft_isvalidnum(char *s)
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+size_t	ft_atoi(const char *str)
 {
-	int	nb;
-	int	minus;
+	size_t	nb;
+	int		minus;
 
 	nb = 0;
 	minus = 1;

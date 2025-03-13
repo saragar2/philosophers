@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/05 20:28:49 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:22:19 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ typedef struct s_general
 	int				end;
 	u_int64_t		stime;
 	int				num_philos;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
-	int				num_t_eat;
+	size_t			t_die;
+	size_t			t_eat;
+	size_t			t_sleep;
+	size_t			num_t_eat;
 }				t_general;
 
 typedef struct s_philo
@@ -74,7 +74,7 @@ void		create_philos();
 u_int64_t	get_time();
 // ------------------------------------------------------------utils
 int 		ft_isvalidnum(char *s);
-int			ft_atoi(const char *str);
+size_t		ft_atoi(const char *str);
 int			f_strcmp(const char *s1, const char *s2);
 // ------------------------------------------------------------activities MODIFICA LOS ARGS PLS
 void		print_status(char *s, t_general *g, t_philo *p);
