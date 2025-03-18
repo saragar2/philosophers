@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   activities.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/13 18:56:26 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:15:43 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,20 @@ void	comer_techo(size_t milis, t_general *g, t_philo *p)
 		usleep(500); //por que 500????
 }
 
-void	lonchazo()
+void	lonchazo(t_general *g, t_philo *p)
 {
-	
+	pthread_mutex_lock(p->right);
+	print_status("fork", g, p);
+	if (g->num_philos == 1)
+		one_philo(g);
+	pthread_mutex_lock(p->left);
+	print_status("fork", g, p);
+	print_status("eat", g, p);
+	pthread_mutex_lock(p->meal_lock);
+	usleep(g->t_eat);
+	pthread_mutex_unlock(p->meal_lock);
+	pthread_mutex_unlock(p->right);
+	pthread_mutex_unlock(p->left);
 }
 
 void	pintarlas(t_general *g, t_philo *p)
