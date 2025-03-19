@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:09:13 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/13 18:19:10 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:41:59 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	init_philos(t_general *g)
 	while (++i < g->num_philos)
 	{
 		g->philos[i].id = i + 1;
-		g->philos[i].t_die = g->t_die;
 		g->philos[i].eat_cont = 0;
 		g->philos[i].status = 0;
 		pthread_mutex_init(&g->philos[i].dead_lock, NULL);
@@ -67,7 +66,7 @@ int	init_and_errs(t_general *g, int argc, char **argv)
 		print_error("Invalid argument");
 	g->start = 0;
 	g->end = 0;
-	g-> stime = 0;
+	g->stime = 0;
 	g->num_philos = ft_atoi(argv[1]);
 	g->t_die = ft_atoi(argv[2]);
 	g->t_eat = ft_atoi(argv[3]);

@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/18 19:15:43 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:29:50 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	lonchazo(t_general *g, t_philo *p)
 	pthread_mutex_lock(p->right);
 	print_status("fork", g, p);
 	if (g->num_philos == 1)
-		one_philo(g);
+		one_philo(g, p);
 	pthread_mutex_lock(p->left);
 	print_status("fork", g, p);
 	print_status("eat", g, p);

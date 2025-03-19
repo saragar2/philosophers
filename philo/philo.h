@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/13 18:57:21 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:41:00 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct s_general
 typedef struct s_philo
 {
 	int	    			id;
+	struct s_general	g;
 	pthread_t			thread; //sin inicializar
-	size_t				t_die;
 	size_t				eat_cont;
 	size_t				status;
 	pthread_mutex_t		*right;
@@ -66,7 +66,7 @@ int			init_and_errs(t_general *g, int argc, char **argv);
 int			init_forks(t_general *g);
 void		init_philos(t_general *g);
 // ------------------------------------------------------------threads MODIFICA LOS ARGS PLS
-void		one_philo(t_general *g);
+void		one_philo(t_general *g, t_philo *p);
 void		busybody_pakita();
 void		routine();
 void		create_philos();
