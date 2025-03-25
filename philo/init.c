@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:09:13 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/19 17:41:59 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:25:41 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	init_philos(t_general *g)
 		g->philos[i].id = i + 1;
 		g->philos[i].eat_cont = 0;
 		g->philos[i].status = 0;
+		g->philos[i].g = g;
 		pthread_mutex_init(&g->philos[i].dead_lock, NULL);
 		pthread_mutex_init(&g->philos[i].meal_lock, NULL);
 		pthread_mutex_init(&g->philos[i].write_lock, NULL);

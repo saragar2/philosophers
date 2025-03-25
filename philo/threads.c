@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:31:06 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/19 18:43:35 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:42:40 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ void	routine(void *philovoid)
 	t_philo	*p;
 	
 	p = (t_philo *)philovoid;
+	if (p->id % 2 == 0)
+		usleep(1);
+	pthread_mutex_lock(p->dead_lock);
+	while (p->dead_lock != 1)
+	{
+		pthread_mutex_unlock(p->dead_lock);
+		lonchazo(p->g, p);
+		pintarlas(p->g, p);
+		comer_techo(p->g->t_sleep, p->g, p);
+		pthread_mutex_lock(p->dead_lock);
+	}
+	pthread_mutex_unlock(p->dead_lock);
 }
 
 void	create_philos(t_general *g)
