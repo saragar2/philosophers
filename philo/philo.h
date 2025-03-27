@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/25 18:26:20 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:53:22 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_philo
 	struct s_general	*g;
 	pthread_t			thread; //sin inicializar
 	size_t				eat_cont;
-	size_t				status;
+	size_t				dead;
 	pthread_mutex_t		*right;
 	pthread_mutex_t		*left;
 	pthread_mutex_t		*dead_lock;

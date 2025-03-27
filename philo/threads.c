@@ -6,15 +6,79 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:31:06 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/25 18:42:40 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/03/27 20:14:45 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	busybody_pakita()
+int	philosopher_dead(t_philo *p, size_t t_die)
 {
-    
+	pthread_mutex_lock(p->meal_lock);
+	if (get_current_time() - p->last_meal >= t_die
+		&& p->eating == 0) //----------------------------corregir esta linea??
+		return (pthread_mutex_unlock(p->meal_lock), 1);
+	pthread_mutex_unlock(p->meal_lock);
+	return (0);
+}
+
+// Check if any philo died
+
+int	check_if_dead(t_philo *p, t_general *g)
+{
+	int	i;
+
+	i = 0;
+	while (i < g->num_philos)
+	{
+		if (philosopher_dead(&p[i], g->t_die))
+		{
+			print_message("died", &p[i], p[i].id);
+			pthread_mutex_lock(p[0].dead_lock);
+			*p->dead = 1; //----------------------------corregir esta linea??
+			pthread_mutex_unlock(p[0].dead_lock);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_if_all_ate(t_philo *p, t_general *g)
+{
+	int	i;
+	int	finished_eating;
+
+	i = -1;
+	finished_eating = 0;
+	if (g->num_t_eat == -1)
+		return (0);
+	while (++i < g->num_philos)
+	{
+		pthread_mutex_lock(p[i].meal_lock);
+		if (p[i].eat_cont >= g->num_t_eat)
+			finished_eating++;
+		pthread_mutex_unlock(p[i].meal_lock);
+	}
+	if (finished_eating == g->num_philos)
+	{
+		pthread_mutex_lock(p[0].dead_lock);
+		p[i].dead = 1; //----------------------------corregir esta linea??
+		pthread_mutex_unlock(p[0].dead_lock);
+		return (1);
+	}
+	return (0);
+}
+
+void	*busybody_pakita(void *philovoid)
+{
+	t_philo	*p;
+
+	p = (t_philo *)philovoid;
+	while (1)
+		if (check_if_dead(p, p->g) == 1 || check_if_all_ate(p, p->g) == 1)
+			break ;
+	return (philovoid);
 }
 
 void	routine(void *philovoid)
