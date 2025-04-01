@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:31:06 by saragar2          #+#    #+#             */
-/*   Updated: 2025/03/27 20:14:45 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/01 18:46:35 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	philosopher_dead(t_philo *p, size_t t_die)
 {
 	pthread_mutex_lock(p->meal_lock);
 	if (get_current_time() - p->last_meal >= t_die
-		&& p->eating == 0) //----------------------------corregir esta linea??
+		&& p->eating == 0)
 		return (pthread_mutex_unlock(p->meal_lock), 1);
 	pthread_mutex_unlock(p->meal_lock);
 	return (0);
@@ -35,7 +35,7 @@ int	check_if_dead(t_philo *p, t_general *g)
 		{
 			print_message("died", &p[i], p[i].id);
 			pthread_mutex_lock(p[0].dead_lock);
-			*p->dead = 1; //----------------------------corregir esta linea??
+			g->dead = 1;
 			pthread_mutex_unlock(p[0].dead_lock);
 			return (1);
 		}
@@ -63,7 +63,7 @@ int	check_if_all_ate(t_philo *p, t_general *g)
 	if (finished_eating == g->num_philos)
 	{
 		pthread_mutex_lock(p[0].dead_lock);
-		p[i].dead = 1; //----------------------------corregir esta linea??
+		g->dead = 1;
 		pthread_mutex_unlock(p[0].dead_lock);
 		return (1);
 	}
