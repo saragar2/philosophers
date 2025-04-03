@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/01 19:02:36 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/03 19:56:30 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,15 @@ void	lonchazo(t_general *g, t_philo *p)
 void	pintarlas(t_general *g, t_philo *p)
 {
 	print_status("think", g, p);
+}
+
+void	limpiarlas(t_general *g)
+{
+	int	i;
+
+	i = 0;
+	while(g->forks && i < g->num_philos)
+	{
+		pthread_mutex_destroy(&program->dead_lock); //-----arreglar
+	}
 }
