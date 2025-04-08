@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/01 18:48:27 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:04:15 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-#define PINK    "\033[38;2;255;182;193m"
-#define BLUE    "\033[38;2;173;216;230m"
-#define GREEN   "\033[38;2;152;251;152m"
-#define YELLOW  "\033[38;2;255;255;153m"
-#define PURPLE  "\033[38;2;216;191;216m"  
-#define ORANGE  "\033[38;2;255;218;185m"
-#define CYAN    "\033[38;2;175;238;238m"
-#define LAVENDER "\033[38;2;230;230;250m"
+# define PINK    "\033[38;2;255;182;193m"
+# define BLUE    "\033[38;2;173;216;230m"
+# define GREEN   "\033[38;2;152;251;152m"
+# define YELLOW  "\033[38;2;255;255;153m"
+# define PURPLE  "\033[38;2;216;191;216m"  
+# define ORANGE  "\033[38;2;255;218;185m"
+# define CYAN    "\033[38;2;175;238;238m"
+# define LAVENDER "\033[38;2;230;230;250m"
 
 typedef struct s_general
 {
@@ -62,26 +62,33 @@ typedef struct s_philo
 	pthread_mutex_t		*write_lock;
 }				t_philo;
 
-// ------------------------------------------------------------parsing
-void		print_error(char *arg);
-int			init_and_errs(t_general *g, int argc, char **argv);
+// ------------------------------------------------------------init
 int			init_forks(t_general *g);
 void		init_philos(t_general *g);
-// ------------------------------------------------------------threads MODIFICA LOS ARGS PLS
+int			init_and_errs(t_general *g, int argc, char **argv);
+// ------------------------------------------------------------main
+void		print_error(char *arg, t_general *g);
+// ------------------------------------------------------------init
 void		one_philo(t_general *g, t_philo *p);
-void		busybody_pakita();
-void		routine();
-void		create_philos();
+// ------------------------------------------------------------threads MODIFICA LOS ARGS PLS
+int			philosopher_dead(t_philo *p, size_t t_die);
+int			check_if_dead(t_philo *p, t_general *g);
+int			check_if_all_ate(t_philo *p, t_general *g);
+void		busybody_pakita(void *philovoid);
+void		routine(void *philovoid);
+void		create_philos(t_general *g);
 // ------------------------------------------------------------time
 u_int64_t	get_time();
+int			my_usleep(size_t milis);
 // ------------------------------------------------------------utils
 int 		ft_isvalidnum(char *s);
-size_t		ft_atoi(const char *str);
+size_t		ft_atoi(const char *str, t_general *g);
 int			f_strcmp(const char *s1, const char *s2);
 // ------------------------------------------------------------activities MODIFICA LOS ARGS PLS
 void		print_status(char *s, t_general *g, t_philo *p);
 void		comer_techo(size_t milis, t_general *g, t_philo *p);
-void		lonchazo();
+void		lonchazo(t_general *g, t_philo *p);
 void		pintarlas(t_general *g, t_philo *p);
+void		limpiarlas(t_general *g)
 
 #endif

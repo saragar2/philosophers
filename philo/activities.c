@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/03 19:56:30 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:03:30 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,18 @@ void	limpiarlas(t_general *g)
 {
 	int	i;
 
-	i = 0;
-	while(g->forks && i < g->num_philos)
+	i = -1;
+	while(++i < g->num_philos)
 	{
-		pthread_mutex_destroy(&program->dead_lock); //-----arreglar
+		pthread_mutex_destroy(&g->forks[i]);
+		pthread_mutex_destroy(&g->philos[i].right);
+		pthread_mutex_destroy(&g->philos[i].left);
+		pthread_mutex_destroy(&g->philos[i].dead_lock);
+		pthread_mutex_destroy(&g->philos[i].meal_lock);
+		pthread_mutex_destroy(&g->philos[i].write_lock);
 	}
+	if (g->forks)
+		free(g->forks);
+	if (g->philos)
+		free(g->philos);
 }
