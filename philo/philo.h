@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/08 20:04:15 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:05:39 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_general
 	size_t			t_die;
 	size_t			t_eat;
 	size_t			t_sleep;
-	size_t			num_t_eat;
+	long int		num_t_eat;
 }				t_general;
 
 typedef struct s_philo
@@ -74,8 +74,8 @@ void		one_philo(t_general *g, t_philo *p);
 int			philosopher_dead(t_philo *p, size_t t_die);
 int			check_if_dead(t_philo *p, t_general *g);
 int			check_if_all_ate(t_philo *p, t_general *g);
-void		busybody_pakita(void *philovoid);
-void		routine(void *philovoid);
+void		*busybody_pakita(void *philovoid);
+void		*routine(void *philovoid);
 void		create_philos(t_general *g);
 // ------------------------------------------------------------time
 u_int64_t	get_time();
@@ -89,6 +89,6 @@ void		print_status(char *s, t_general *g, t_philo *p);
 void		comer_techo(size_t milis, t_general *g, t_philo *p);
 void		lonchazo(t_general *g, t_philo *p);
 void		pintarlas(t_general *g, t_philo *p);
-void		limpiarlas(t_general *g)
+void		limpiarlas(t_general *g);
 
 #endif

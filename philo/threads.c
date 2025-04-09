@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:31:06 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/01 18:46:35 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:15:49 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	philosopher_dead(t_philo *p, size_t t_die)
 {
 	pthread_mutex_lock(p->meal_lock);
-	if (get_current_time() - p->last_meal >= t_die
+	if (get_time() - p->last_meal >= t_die
 		&& p->eating == 0)
 		return (pthread_mutex_unlock(p->meal_lock), 1);
 	pthread_mutex_unlock(p->meal_lock);
@@ -33,7 +33,7 @@ int	check_if_dead(t_philo *p, t_general *g)
 	{
 		if (philosopher_dead(&p[i], g->t_die))
 		{
-			print_message("died", &p[i], p[i].id);
+			print_status("dead", g, p);
 			pthread_mutex_lock(p[0].dead_lock);
 			g->dead = 1;
 			pthread_mutex_unlock(p[0].dead_lock);
@@ -81,7 +81,7 @@ void	*busybody_pakita(void *philovoid)
 	return (philovoid);
 }
 
-void	routine(void *philovoid)
+void	*routine(void *philovoid)
 {
 	t_philo	*p;
 	
@@ -98,6 +98,7 @@ void	routine(void *philovoid)
 		pthread_mutex_lock(p->dead_lock);
 	}
 	pthread_mutex_unlock(p->dead_lock);
+	return (philovoid);
 }
 
 void	create_philos(t_general *g)
