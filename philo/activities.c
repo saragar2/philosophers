@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/16 15:11:12 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:02:34 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_status(char *s, t_general *g, t_philo *p)
 {
 	size_t	t;
 	
-	pthread_mutex_lock(p->write_lock);
+	pthread_mutex_lock(&p->write_lock);
 	t = get_time() - g->stime;
 	if (f_strcmp(s, "fork"))
 		printf("%s[%lu] %d  has taken a fork", PINK, t, p->id);
@@ -28,7 +28,7 @@ void	print_status(char *s, t_general *g, t_philo *p)
 		printf("%s[%lu] %d  is thinking", YELLOW, t, p->id);
 	else if (f_strcmp(s, "dead"))
 		printf("%s[%lu] %d  died", PURPLE, t, p->id);
-	pthread_mutex_unlock(p->write_lock);
+	pthread_mutex_unlock(&p->write_lock);
 }
 
 void	comer_techo(size_t milis, t_general *g, t_philo *p)
@@ -50,11 +50,11 @@ void	lonchazo(t_general *g, t_philo *p)
 	pthread_mutex_lock(p->left);
 	print_status("fork", g, p);
 	print_status("eat", g, p);
-	pthread_mutex_lock(p->meal_lock);
+	pthread_mutex_lock(&p->meal_lock);
 	my_usleep(g->t_eat);
 	p->eating = 1;
 	p->last_meal = get_time();
-	pthread_mutex_unlock(p->meal_lock);
+	pthread_mutex_unlock(&p->meal_lock);
 	pthread_mutex_unlock(p->right);
 	pthread_mutex_unlock(p->left);
 }
@@ -71,12 +71,17 @@ void	limpiarlas(t_general *g)
 	i = -1;
 	while (++i < g->num_philos)
 	{
-		pthread_mutex_destroy(&g->forks[i]);
-		pthread_mutex_destroy(g->philos[i].right);
-		pthread_mutex_destroy(g->philos[i].left);
-		pthread_mutex_destroy(g->philos[i].dead_lock);
-		pthread_mutex_destroy(g->philos[i].meal_lock);
-		pthread_mutex_destroy(g->philos[i].write_lock);
+		if (g->forks)
+		{
+			pthread_mutex_destroy(g->philos[i].right);
+			pthread_mutex_destroy(g->philos[i].left);
+		}
+		if (g->philos)
+		{
+			pthread_mutex_destroy(&g->philos[i].dead_lock);
+			pthread_mutex_destroy(&g->philos[i].meal_lock);
+			pthread_mutex_destroy(&g->philos[i].write_lock);
+		}
 	}
 	if (g->forks)
 		free(g->forks);

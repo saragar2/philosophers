@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:18:26 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/08 21:11:47 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:59:19 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ size_t	ft_atoi(const char *str)
 	if (*str == '+' || *str == '-')
 	{
 		if (*(str + 1) == '+' || *(str + 1) == '-')
-			print_error("Atoi error: more than one sign", g);
+			print_error("Atoi error: more than one sign");
 		str++;
 	}
 	while (*str >= 48 && *str <= 57)
@@ -49,7 +49,7 @@ size_t	ft_atoi(const char *str)
 		str++;
 	}
 	if (nb <= 0)
-		print_error("You can't use 0", g);
+		print_error("You can't use 0");
 	return (nb);
 }
 

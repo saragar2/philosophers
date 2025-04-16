@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:31:06 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/16 16:03:08 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:37:13 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	philosopher_dead(t_philo *p, size_t t_die)
 {
-	pthread_mutex_lock(p->meal_lock);
+	pthread_mutex_lock(&p->meal_lock);
 	if (get_time() - p->last_meal >= t_die
 		&& p->eating == 0)
-		return (pthread_mutex_unlock(p->meal_lock), 1);
-	pthread_mutex_unlock(p->meal_lock);
+		return (pthread_mutex_unlock(&p->meal_lock), 1);
+	pthread_mutex_unlock(&p->meal_lock);
 	return (0);
 }
 
@@ -34,9 +34,9 @@ int	check_if_dead(t_philo *p, t_general *g)
 		if (philosopher_dead(&p[i], g->t_die))
 		{
 			print_status("dead", g, p);
-			pthread_mutex_lock(p[0].dead_lock);
+			pthread_mutex_lock(&p[0].dead_lock);
 			g->dead = 1;
-			pthread_mutex_unlock(p[0].dead_lock);
+			pthread_mutex_unlock(&p[0].dead_lock);
 			return (1);
 		}
 		i++;
@@ -55,16 +55,16 @@ int	check_if_all_ate(t_philo *p, t_general *g)
 		return (0);
 	while (++i < g->num_philos)
 	{
-		pthread_mutex_lock(p[i].meal_lock);
+		pthread_mutex_lock(&p[i].meal_lock);
 		if (p[i].eat_cont >= (size_t)g->num_t_eat)
 			finished_eating++;
-		pthread_mutex_unlock(p[i].meal_lock);
+		pthread_mutex_unlock(&p[i].meal_lock);
 	}
 	if (finished_eating == g->num_philos)
 	{
-		pthread_mutex_lock(p[0].dead_lock);
+		pthread_mutex_lock(&p[0].dead_lock);
 		g->dead = 1;
-		pthread_mutex_unlock(p[0].dead_lock);
+		pthread_mutex_unlock(&p[0].dead_lock);
 		return (1);
 	}
 	return (0);
@@ -88,16 +88,16 @@ void	*routine(void *philovoid)
 	p = (t_philo *)philovoid;
 	if (p->id % 2 == 0)
 		my_usleep(1);
-	pthread_mutex_lock(p->dead_lock);
+	pthread_mutex_lock(&p->dead_lock);
 	while (check_if_dead(p, p->g) != 1)
 	{
-		pthread_mutex_unlock(p->dead_lock);
+		pthread_mutex_unlock(&p->dead_lock);
 		lonchazo(p->g, p);
 		pintarlas(p->g, p);
 		comer_techo(p->g->t_sleep, p->g, p);
-		pthread_mutex_lock(p->dead_lock);
+		pthread_mutex_lock(&p->dead_lock);
 	}
-	pthread_mutex_unlock(p->dead_lock);
+	pthread_mutex_unlock(&p->dead_lock);
 	return (philovoid);
 }
 

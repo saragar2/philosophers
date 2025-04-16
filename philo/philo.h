@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/16 16:02:44 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:56:33 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ typedef struct s_philo
 	u_int64_t			last_meal;
 	pthread_mutex_t		*right;
 	pthread_mutex_t		*left;
-	pthread_mutex_t		*dead_lock;
-	pthread_mutex_t		*meal_lock;
-	pthread_mutex_t		*write_lock;
+	pthread_mutex_t		dead_lock;
+	pthread_mutex_t		meal_lock;
+	pthread_mutex_t		write_lock;
 }				t_philo;
 
 // ------------------------------------------------------------init
@@ -67,8 +67,8 @@ int			init_forks(t_general *g);
 void		init_philos(t_general *g);
 int			init_and_errs(t_general *g, int argc, char **argv);
 // ------------------------------------------------------------main
-void		print_error(char *arg, t_general *g);
-// ------------------------------------------------------------init
+void		print_error(char *arg);
+// ------------------------------------------------------------one_philo
 void		one_philo(t_general *g, t_philo *p);
 // ------------------------------------------------------------threads MODIFICA LOS ARGS PLS
 int			philosopher_dead(t_philo *p, size_t t_die);
@@ -82,7 +82,7 @@ u_int64_t	get_time();
 int			my_usleep(size_t milis);
 // ------------------------------------------------------------utils
 int 		ft_isvalidnum(char *s);
-size_t		ft_atoi(const char *str, t_general *g);
+size_t		ft_atoi(const char *str);
 int			f_strcmp(const char *s1, const char *s2);
 // ------------------------------------------------------------activities MODIFICA LOS ARGS PLS
 void		print_status(char *s, t_general *g, t_philo *p);
