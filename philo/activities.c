@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   activities.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/09 17:56:18 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:11:12 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	comer_techo(size_t milis, t_general *g, t_philo *p)
 	print_status("sleep", g, p);
 	start = get_time();
 	while ((get_time() - start) < milis)
-		usleep(500); //por que 500????
+		my_usleep(500); //por que 500????
 }
 
 void	lonchazo(t_general *g, t_philo *p)
@@ -51,7 +51,7 @@ void	lonchazo(t_general *g, t_philo *p)
 	print_status("fork", g, p);
 	print_status("eat", g, p);
 	pthread_mutex_lock(p->meal_lock);
-	usleep(g->t_eat);
+	my_usleep(g->t_eat);
 	p->eating = 1;
 	p->last_meal = get_time();
 	pthread_mutex_unlock(p->meal_lock);

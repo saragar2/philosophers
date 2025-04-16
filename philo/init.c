@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:09:13 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/08 21:12:11 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:51:59 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void	init_philos(t_general *g)
 	int	i;
 
 	i = -1;
-	g->tid = malloc(sizeof(pthread_t) * g->num_philos);
-	if (!g->tid)
-		print_error("Malloc error: tid", g);
 	g->philos = malloc(sizeof(t_philo) * g->num_philos);
 	if (!g->philos)
 		print_error("Malloc error: philos", g);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/09 19:05:39 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:02:44 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 
 typedef struct s_general
 {
-	pthread_t		*tid;
 	struct s_philo	*philos; //sin inicializar (malloc hecho en init_philos() pero sin contenido)
 	pthread_mutex_t	*forks;
 	int				start;
@@ -49,6 +48,7 @@ typedef struct s_general
 
 typedef struct s_philo
 {
+	pthread_t			tid;
 	int	    			id;
 	struct s_general	*g;
 	pthread_t			thread; //sin inicializar

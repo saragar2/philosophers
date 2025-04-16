@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saragar2 <saragar2@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:31:06 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/09 18:15:49 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:03:08 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_if_all_ate(t_philo *p, t_general *g)
 	while (++i < g->num_philos)
 	{
 		pthread_mutex_lock(p[i].meal_lock);
-		if (p[i].eat_cont >= g->num_t_eat)
+		if (p[i].eat_cont >= (size_t)g->num_t_eat)
 			finished_eating++;
 		pthread_mutex_unlock(p[i].meal_lock);
 	}
@@ -87,9 +87,9 @@ void	*routine(void *philovoid)
 	
 	p = (t_philo *)philovoid;
 	if (p->id % 2 == 0)
-		usleep(1);
+		my_usleep(1);
 	pthread_mutex_lock(p->dead_lock);
-	while (p->dead_lock != 1)
+	while (check_if_dead(p, p->g) != 1)
 	{
 		pthread_mutex_unlock(p->dead_lock);
 		lonchazo(p->g, p);
@@ -109,9 +109,9 @@ void	create_philos(t_general *g)
     g->stime = get_time();
 	while (++i < g->num_philos)
 	{
-        pthread_create(g->tid[i], NULL, &routine, &g->philos[i]);
-		usleep(1);
+        pthread_create(&g->philos[i].tid, NULL, routine, &g->philos[i]);
+		my_usleep(1);
 	}
     while (++i < g->num_philos)
-		pthread_join(g->tid[i], NULL);
+		pthread_join(g->philos[i].tid, NULL);
 }
