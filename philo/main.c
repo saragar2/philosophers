@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	// printf("\ndebug\n");
 	init_and_errs(&g, argc, argv);
 	create_philos(&g);
-	limpiarlas(&g);
+	// limpiarlas(&g);
 }
 
 

@@ -17,7 +17,7 @@ int	philosopher_dead(t_philo *p, size_t t_die)
 	pthread_mutex_lock(&p->meal_lock);
 	if (get_time() - p->last_meal >= t_die
 		&& p->eating == 0)
-		return (pthread_mutex_unlock(&p->meal_lock), 1);
+		return (pthread_mutex_unlock(&p->meal_lock), 1); //arreglala que está fea
 	pthread_mutex_unlock(&p->meal_lock);
 	return (0);
 }
@@ -34,9 +34,9 @@ int	check_if_dead(t_philo *p, t_general *g)
 		if (philosopher_dead(&p[i], g->t_die))
 		{
 			print_status("dead", g, p);
-			pthread_mutex_lock(&p[0].dead_lock);
+			pthread_mutex_lock(&p[i].dead_lock); //p[0]??
 			g->dead = 1;
-			pthread_mutex_unlock(&p[0].dead_lock);
+			pthread_mutex_unlock(&p[i].dead_lock);
 			return (1);
 		}
 		i++;
@@ -50,6 +50,7 @@ int	check_if_all_ate(t_philo *p, t_general *g)
 	int	finished_eating;
 
 	i = -1;
+	printf("\ndebug\n");
 	finished_eating = 0;
 	if (g->num_t_eat == -1)
 		return (0);
@@ -62,9 +63,9 @@ int	check_if_all_ate(t_philo *p, t_general *g)
 	}
 	if (finished_eating == g->num_philos)
 	{
-		pthread_mutex_lock(&p[0].dead_lock);
+		pthread_mutex_lock(&p[i].dead_lock);
 		g->dead = 1;
-		pthread_mutex_unlock(&p[0].dead_lock);
+		pthread_mutex_unlock(&p[i].dead_lock);
 		return (1);
 	}
 	return (0);
@@ -77,7 +78,10 @@ void	*busybody_pakita(void *philovoid)
 	p = (t_philo *)philovoid;
 	while (1)
 		if (check_if_dead(p, p->g) == 1 || check_if_all_ate(p, p->g) == 1)
-			break ;
+			{printf("\ndebugÑAMÑAMÑAM\n"); break ;}
+	limpiarlas(p->g); //probablemente no sirva porque creo que no tiene la info guardada
+	printf("\ndebug CHAUUUU\n");
+	exit(1); //apaño casero que hay que re apañar
 	return (philovoid);
 }
 
@@ -89,7 +93,7 @@ void	*routine(void *philovoid)
 	if (p->id % 2 == 0)
 		my_usleep(1);
 	pthread_mutex_lock(&p->dead_lock);
-	while (check_if_dead(p, p->g) != 1)
+	while (1)
 	{
 		pthread_mutex_unlock(&p->dead_lock);
 		lonchazo(p->g, p);
@@ -107,11 +111,13 @@ void	create_philos(t_general *g)
 
     i = -1;
     g->stime = get_time();
+	pthread_create(&g->pakita_tid, NULL, busybody_pakita, &g->pakita);
 	while (++i < g->num_philos)
 	{
         pthread_create(&g->philos[i].tid, NULL, routine, &g->philos[i]);
 		my_usleep(1);
 	}
+	i = -1;
     while (++i < g->num_philos)
 		pthread_join(g->philos[i].tid, NULL);
 }

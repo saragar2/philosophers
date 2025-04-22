@@ -19,15 +19,15 @@ void	print_status(char *s, t_general *g, t_philo *p)
 	pthread_mutex_lock(&p->write_lock);
 	t = get_time() - g->stime;
 	if (f_strcmp(s, "fork"))
-		printf("%s[%lu] %d  has taken a fork", PINK, t, p->id);
+		printf("%s[%lu] %d has taken a fork\n", PINK, t, p->id);
 	else if (f_strcmp(s, "eat"))
-		printf("%s[%lu] %d  is eating", BLUE, t, p->id);
+		printf("%s[%lu] %d is eating\n", BLUE, t, p->id);
 	else if (f_strcmp(s, "sleep"))
-		printf("%s[%lu] %d  is sleeping", GREEN, t, p->id);
+		printf("%s[%lu] %d is sleeping\n", GREEN, t, p->id);
 	else if (f_strcmp(s, "think"))
-		printf("%s[%lu] %d  is thinking", YELLOW, t, p->id);
+		printf("%s[%lu] %d is thinking\n", YELLOW, t, p->id);
 	else if (f_strcmp(s, "dead"))
-		printf("%s[%lu] %d  died", PURPLE, t, p->id);
+		printf("%s[%lu] %d died\n", PURPLE, t, p->id);
 	pthread_mutex_unlock(&p->write_lock);
 }
 
@@ -43,6 +43,7 @@ void	comer_techo(size_t milis, t_general *g, t_philo *p)
 
 void	lonchazo(t_general *g, t_philo *p)
 {
+	printf("\ndebug\n");
 	pthread_mutex_lock(p->right);
 	print_status("fork", g, p);
 	if (g->num_philos == 1)

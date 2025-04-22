@@ -35,6 +35,8 @@ typedef struct s_general
 {
 	struct s_philo	*philos; //sin inicializar (malloc hecho en init_philos() pero sin contenido)
 	pthread_mutex_t	*forks;
+	pthread_t		pakita_tid;
+	struct s_philo	*pakita;
 	int				start;
 	int				end;
 	u_int64_t		stime;
