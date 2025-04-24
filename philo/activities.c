@@ -18,15 +18,15 @@ void	print_status(char *s, t_general *g, t_philo *p)
 	
 	pthread_mutex_lock(&p->write_lock);
 	t = get_time() - g->stime;
-	if (f_strcmp(s, "fork"))
+	if (f_strcmp(s, "fork") == 0)
 		printf("%s[%lu] %d has taken a fork\n", PINK, t, p->id);
-	else if (f_strcmp(s, "eat"))
+	else if (f_strcmp(s, "eat") == 0)
 		printf("%s[%lu] %d is eating\n", BLUE, t, p->id);
-	else if (f_strcmp(s, "sleep"))
+	else if (f_strcmp(s, "sleep") == 0)
 		printf("%s[%lu] %d is sleeping\n", GREEN, t, p->id);
-	else if (f_strcmp(s, "think"))
+	else if (f_strcmp(s, "think") == 0)
 		printf("%s[%lu] %d is thinking\n", YELLOW, t, p->id);
-	else if (f_strcmp(s, "dead"))
+	else if (f_strcmp(s, "dead") == 0)
 		printf("%s[%lu] %d died\n", PURPLE, t, p->id);
 	pthread_mutex_unlock(&p->write_lock);
 }

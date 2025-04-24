@@ -50,7 +50,6 @@ int	check_if_all_ate(t_philo *p, t_general *g)
 	int	finished_eating;
 
 	i = -1;
-	printf("\ndebug\n");
 	finished_eating = 0;
 	if (g->num_t_eat == -1)
 		return (0);
@@ -63,9 +62,9 @@ int	check_if_all_ate(t_philo *p, t_general *g)
 	}
 	if (finished_eating == g->num_philos)
 	{
-		pthread_mutex_lock(&p[i].dead_lock);
+		pthread_mutex_lock(&p[0].dead_lock);
 		g->dead = 1;
-		pthread_mutex_unlock(&p[i].dead_lock);
+		pthread_mutex_unlock(&p[0].dead_lock);
 		return (1);
 	}
 	return (0);
@@ -78,9 +77,8 @@ void	*busybody_pakita(void *philovoid)
 	p = (t_philo *)philovoid;
 	while (1)
 		if (check_if_dead(p, p->g) == 1 || check_if_all_ate(p, p->g) == 1)
-			{printf("\ndebugÑAMÑAMÑAM\n"); break ;}
+			break ;
 	limpiarlas(p->g); //probablemente no sirva porque creo que no tiene la info guardada
-	printf("\ndebug CHAUUUU\n");
 	exit(1); //apaño casero que hay que re apañar
 	return (philovoid);
 }
