@@ -106,10 +106,14 @@ void	*routine(void *philovoid)
 void	create_philos(t_general *g)
 {
 	int i;
+	t_philo	pakita;
 
     i = -1;
     g->stime = get_time();
-	pthread_create(&g->pakita_tid, NULL, busybody_pakita, &g->pakita);
+	pthread_mutex_init(&pakita.dead_lock, NULL);
+	pthread_mutex_init(&pakita.meal_lock, NULL);
+	pthread_mutex_init(&pakita.write_lock, NULL);
+	pthread_create(&pakita.pakita_tid, NULL, busybody_pakita, &pakita);
 	while (++i < g->num_philos)
 	{
         pthread_create(&g->philos[i].tid, NULL, routine, &g->philos[i]);

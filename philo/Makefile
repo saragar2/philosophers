@@ -1,7 +1,7 @@
 NAME = philo
 SRCS = activities.c threads.c main.c init.c time.c one_philo.c utils.c
 
-CFLAGS = -Wall -Wextra -Werror -pthread -g3 -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread -g3 #-fsanitize=thread
 REMOVE = rm -f
 CC = gcc
 

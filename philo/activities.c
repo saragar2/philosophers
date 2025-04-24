@@ -43,7 +43,6 @@ void	comer_techo(size_t milis, t_general *g, t_philo *p)
 
 void	lonchazo(t_general *g, t_philo *p)
 {
-	printf("\ndebug\n");
 	pthread_mutex_lock(p->right);
 	print_status("fork", g, p);
 	if (g->num_philos == 1)

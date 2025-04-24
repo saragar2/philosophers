@@ -35,7 +35,6 @@ typedef struct s_general
 {
 	struct s_philo	*philos; //sin inicializar (malloc hecho en init_philos() pero sin contenido)
 	pthread_mutex_t	*forks;
-	pthread_t		pakita_tid;
 	struct s_philo	*pakita;
 	int				start;
 	int				end;
@@ -51,6 +50,7 @@ typedef struct s_general
 typedef struct s_philo
 {
 	pthread_t			tid;
+	pthread_t			pakita_tid;
 	int	    			id;
 	struct s_general	*g;
 	pthread_t			thread; //sin inicializar
