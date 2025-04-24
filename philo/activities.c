@@ -35,10 +35,13 @@ void	comer_techo(size_t milis, t_general *g, t_philo *p)
 {
 	size_t	start;
 
+	(void)milis;
 	print_status("sleep", g, p);
 	start = get_time();
-	while ((get_time() - start) < milis)
-		my_usleep(500); //por que 500????
+	(void)start;
+	// while ((get_time() - start) < milis)
+	// 	my_usleep(500); //por que 500????
+	my_usleep(g->t_sleep);
 }
 
 void	lonchazo(t_general *g, t_philo *p)
@@ -55,8 +58,8 @@ void	lonchazo(t_general *g, t_philo *p)
 	p->eating = 1;
 	p->last_meal = get_time();
 	pthread_mutex_unlock(&p->meal_lock);
-	pthread_mutex_unlock(p->right);
 	pthread_mutex_unlock(p->left);
+	pthread_mutex_unlock(p->right);
 }
 
 void	pintarlas(t_general *g, t_philo *p)

@@ -95,8 +95,8 @@ void	*routine(void *philovoid)
 	{
 		pthread_mutex_unlock(&p->dead_lock);
 		lonchazo(p->g, p);
-		pintarlas(p->g, p);
 		comer_techo(p->g->t_sleep, p->g, p);
+		pintarlas(p->g, p);
 		pthread_mutex_lock(&p->dead_lock);
 	}
 	pthread_mutex_unlock(&p->dead_lock);

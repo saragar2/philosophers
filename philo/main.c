@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 	t_general g;
 
 	// printf("\ndebug\n");
+	
 	init_and_errs(&g, argc, argv);
 	create_philos(&g);
 	limpiarlas(&g);
@@ -35,4 +36,5 @@ int main(int argc, char **argv)
 // hay que hardcodear el caso del filosofo solo
 // como putas se usan g->philos y philo->thread????
 // Norminette
-// Hay que hacer un ft_usleep() para controlar que el filosofo no muera en entretiempos (deberia dormir 800, pero en el 200 muere, y no puede esperar los 800)
+// pakita no se está chivando cuando mueren
+// En el caso de one_philo saltan problemas (y ademas lo hace mal)
