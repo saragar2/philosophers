@@ -38,3 +38,4 @@ int main(int argc, char **argv)
 // Norminette
 // pakita no se está chivando cuando mueren
 // En el caso de one_philo saltan problemas (y ademas lo hace mal)
+// quita los putos mutex de t_philo y metelos en general, que sino con 200 philos hay 600 mutex (y se usan 3)

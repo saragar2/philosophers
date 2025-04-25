@@ -15,8 +15,9 @@
 int	philosopher_dead(t_philo *p, size_t t_die)
 {
 	pthread_mutex_lock(&p->meal_lock);
-	if (get_time() - p->last_meal >= t_die
-		&& p->eating == 0)
+	// if (get_time() - p->last_meal >= t_die
+	// 	&& p->eating == 0)
+	if (get_time() - p->last_meal >= t_die)
 		return (pthread_mutex_unlock(&p->meal_lock), 1); //arreglala que está fea
 	pthread_mutex_unlock(&p->meal_lock);
 	return (0);
@@ -31,7 +32,7 @@ int	check_if_dead(t_philo *p, t_general *g)
 	i = 0;
 	while (i < g->num_philos)
 	{
-		if (philosopher_dead(&p[i], g->t_die))
+		if (philosopher_dead(&p[i], g->t_die) == 1)
 		{
 			print_status("dead", g, p);
 			pthread_mutex_lock(&p[i].dead_lock); //p[0]??
@@ -65,7 +66,8 @@ int	check_if_all_ate(t_philo *p, t_general *g)
 		pthread_mutex_lock(&p[0].dead_lock);
 		g->dead = 1;
 		pthread_mutex_unlock(&p[0].dead_lock);
-		return (1);
+		// printf("\ndebug PAKITA\n");
+		return (1); //por que coño sales pakita (Salas)
 	}
 	return (0);
 }
@@ -78,7 +80,7 @@ void	*busybody_pakita(void *philovoid)
 	while (1)
 		if (check_if_dead(p, p->g) == 1 || check_if_all_ate(p, p->g) == 1)
 			break ;
-	limpiarlas(p->g); //probablemente no sirva porque creo que no tiene la info guardada
+	limpiarlas(p->g);
 	exit(1); //apaño casero que hay que re apañar
 	return (philovoid);
 }
@@ -91,6 +93,7 @@ void	*routine(void *philovoid)
 	if (p->id % 2 == 0)
 		my_usleep(1);
 	pthread_mutex_lock(&p->dead_lock);
+	
 	while (1)
 	{
 		pthread_mutex_unlock(&p->dead_lock);
@@ -113,6 +116,7 @@ void	create_philos(t_general *g)
 	pthread_mutex_init(&pakita.dead_lock, NULL);
 	pthread_mutex_init(&pakita.meal_lock, NULL);
 	pthread_mutex_init(&pakita.write_lock, NULL);
+	pakita.g = g;
 	pthread_create(&pakita.pakita_tid, NULL, busybody_pakita, &pakita);
 	while (++i < g->num_philos)
 	{

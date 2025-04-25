@@ -54,8 +54,9 @@ void	lonchazo(t_general *g, t_philo *p)
 	print_status("fork", g, p);
 	print_status("eat", g, p);
 	pthread_mutex_lock(&p->meal_lock);
-	my_usleep(g->t_eat);
 	p->eating = 1;
+	my_usleep(g->t_eat);
+	p->eating = 0;
 	p->last_meal = get_time();
 	pthread_mutex_unlock(&p->meal_lock);
 	pthread_mutex_unlock(p->left);

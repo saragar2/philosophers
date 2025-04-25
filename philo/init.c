@@ -50,7 +50,7 @@ void	init_philos(t_general *g)
 		g->philos[i].id = i + 1;
 		g->philos[i].eat_cont = 0;
 		g->philos[i].eating = 0;
-		g->philos[i].last_meal = 0;
+		g->philos[i].last_meal = get_time();
 		g->philos[i].g = g;
 		pthread_mutex_init(&g->philos[i].dead_lock, NULL);
 		pthread_mutex_init(&g->philos[i].meal_lock, NULL);
