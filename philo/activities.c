@@ -40,8 +40,9 @@ void	comer_techo(size_t milis, t_general *g, t_philo *p)
 	start = get_time();
 	(void)start;
 	// while ((get_time() - start) < milis)
-	// 	my_usleep(500); //por que 500????
-	my_usleep(g->t_sleep);
+		// my_usleep(500); //por que 500????
+	// my_usleep(g->t_sleep);
+	my_usleep(milis);
 }
 
 void	lonchazo(t_general *g, t_philo *p)
@@ -86,6 +87,7 @@ void	limpiarlas(t_general *g)
 			pthread_mutex_destroy(&g->philos[i].meal_lock);
 			pthread_mutex_destroy(&g->philos[i].write_lock);
 		}
+		pthread_detach(g->philos[i].tid);
 	}
 	if (g->forks)
 		free(g->forks);

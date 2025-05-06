@@ -51,6 +51,7 @@ typedef struct s_philo
 {
 	pthread_t			tid;
 	pthread_t			pakita_tid;
+	int					im_pakita;
 	int	    			id;
 	struct s_general	*g;
 	pthread_t			thread; //sin inicializar

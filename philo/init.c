@@ -48,6 +48,7 @@ void	init_philos(t_general *g)
 	while (++i < g->num_philos)
 	{
 		g->philos[i].id = i + 1;
+		g->philos[i].im_pakita = 0;
 		g->philos[i].eat_cont = 0;
 		g->philos[i].eating = 0;
 		g->philos[i].last_meal = get_time();
