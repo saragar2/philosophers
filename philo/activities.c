@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/16 17:02:34 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:32:47 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,31 @@ void	comer_techo(size_t milis, t_general *g, t_philo *p)
 	my_usleep(milis);
 }
 
-void	lonchazo(t_general *g, t_philo *p)
+int	lonchazo(t_general *g, t_philo *p)
 {
 	pthread_mutex_lock(p->right);
+	// if (g->dead == 1)
+		// return (pthread_mutex_unlock(p->right));
 	print_status("fork", g, p);
-	if (g->num_philos == 1)
-		one_philo(g, p);
+	// printf("\ndebug SOY %d Y VOY A COMER. g->dead = %d-------------------\n", p->id, p->g->dead);
+	// if (g->dead == 1)
+	// 	return (pthread_mutex_unlock(p->right));
+	// printf("\ndebug SOY %d Y VOY A COMER DE NUEVO. g->dead = %d-------------------\n", p->id, p->g->dead);
 	pthread_mutex_lock(p->left);
 	print_status("fork", g, p);
-	print_status("eat", g, p);
-	pthread_mutex_lock(&p->meal_lock);
-	p->eating = 1;
-	my_usleep(g->t_eat);
-	p->eating = 0;
-	p->last_meal = get_time();
-	pthread_mutex_unlock(&p->meal_lock);
+	if (g->dead == 0)
+	{
+		pthread_mutex_lock(&p->meal_lock);
+		print_status("eat", g, p);
+		p->eating = 1;
+		my_usleep(g->t_eat);
+		p->eating = 0;
+		p->last_meal = get_time();
+		pthread_mutex_unlock(&p->meal_lock);
+	}
 	pthread_mutex_unlock(p->left);
 	pthread_mutex_unlock(p->right);
+	return (0);
 }
 
 void	pintarlas(t_general *g, t_philo *p)
@@ -74,13 +82,19 @@ void	limpiarlas(t_general *g)
 	int	i;
 
 	i = -1;
+	// printf("\ndebug SOY %d Y VOY A MORIR. g->dead = %d-------------------\n", g->p.id, g->p->g->dead);
+
 	while (++i < g->num_philos)
 	{
-		if (g->forks)
+		/*pthread_mutex_lock(&g->philos[0].write_lock);
+		printf("\nCUCU TRAS???\n");
+		pthread_mutex_unlock(&g->philos[0].write_lock);*/
+		if (&g->forks)
 		{
-			pthread_mutex_destroy(g->philos[i].right);
-			pthread_mutex_destroy(g->philos[i].left);
+			pthread_mutex_unlock(&g->forks[0]);
+			// printf("\nFork nbr [%d]----------------------------------------------------------------------------------\n", i);
 		}
+		pthread_mutex_destroy(&g->forks[i]);
 		if (g->philos)
 		{
 			pthread_mutex_destroy(&g->philos[i].dead_lock);

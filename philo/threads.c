@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:31:06 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/16 16:37:13 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:31:20 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	philosopher_dead(t_philo *p, size_t t_die)
 	// if (get_time() - p->last_meal >= t_die
 	// 	&& p->eating == 0) 
 	// if (get_time() - p->last_meal >= t_die)
-	printf("\n debug HOLA SOY %d, Y LA RESTA ENTRE GET_TIME Y LAST MEAL ES %ld\n", p->id, get_time() - p->last_meal);
+	// printf("\n debug HOLA SOY %d, Y LA RESTA ENTRE GET_TIME Y LAST MEAL ES %ld\n", p->id, get_time() - p->last_meal);
 	if (p->im_pakita == 0 && get_time() - p->last_meal >= t_die)
 		return (pthread_mutex_unlock(&p->meal_lock), 1); //arreglala que está fea
 	pthread_mutex_unlock(&p->meal_lock);
@@ -35,7 +35,7 @@ int	check_if_dead(t_philo *p, t_general *g)
 	while (++i < g->num_philos)
 	{
 		pthread_mutex_lock(&p[0].dead_lock);
-		printf("\ndebug OYE AQUI SOMOS EN TOTAL %d, Y YO SOY %d\n---------------------------------------------", g->num_philos, p[i].id);
+		// printf("\ndebug OYE AQUI SOMOS EN TOTAL %d, Y YO SOY %d\n---------------------------------------------", g->num_philos, p[i].id);
 		pthread_mutex_unlock(&p[0].dead_lock);
 		if (philosopher_dead(&p[i], g->t_die) == 1)
 		{
@@ -88,8 +88,7 @@ void	*busybody_pakita(void *philovoid)
 			break ;
 		}
 	}
-	limpiarlas(p->g);
-	exit(1); //apaño casero que hay que re apañar
+	exit(1);
 	return (philovoid);
 }
 
@@ -100,17 +99,17 @@ void	*routine(void *philovoid)
 	p = (t_philo *)philovoid;
 	if (p->id % 2 == 0)
 		my_usleep(1);
-	pthread_mutex_lock(&p->dead_lock);
-	
 	while (1)
 	{
-		pthread_mutex_unlock(&p->dead_lock);
-		lonchazo(p->g, p);
-		comer_techo(p->g->t_sleep, p->g, p);
-		pintarlas(p->g, p);
-		pthread_mutex_lock(&p->dead_lock);
+		if (p->g->dead == 0)
+			lonchazo(p->g, p);
+		if (p->g->dead == 0)
+			comer_techo(p->g->t_sleep, p->g, p);
+		if (p->g->dead == 0)
+			pintarlas(p->g, p);
+		if (p->g->dead == 1)
+			break ;
 	}
-	pthread_mutex_unlock(&p->dead_lock);
 	return (philovoid);
 }
 
@@ -128,6 +127,8 @@ void	create_philos(t_general *g)
 	pakita.id = -1;
 	pakita.im_pakita = 1;
 	pthread_create(&pakita.pakita_tid, NULL, busybody_pakita, &pakita);
+	//if (g->num_philos == 1)
+		//pthread_create(&g->philos[i].tid, NULL, one_philo, &g->philos[i]);
 	while (++i < g->num_philos)
 	{
         pthread_create(&g->philos[i].tid, NULL, routine, &g->philos[i]);
@@ -136,4 +137,7 @@ void	create_philos(t_general *g)
 	i = -1;
     while (++i < g->num_philos)
 		pthread_join(g->philos[i].tid, NULL);
+	pthread_mutex_lock(&g->philos[0].write_lock);
+	printf("\nHORA DE LIMPIAAAAR\n");
+	pthread_mutex_unlock(&g->philos[0].write_lock);
 }

@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/16 16:56:33 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:51:56 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			f_strcmp(const char *s1, const char *s2);
 // ------------------------------------------------------------activities MODIFICA LOS ARGS PLS
 void		print_status(char *s, t_general *g, t_philo *p);
 void		comer_techo(size_t milis, t_general *g, t_philo *p);
-void		lonchazo(t_general *g, t_philo *p);
+int			lonchazo(t_general *g, t_philo *p);
 void		pintarlas(t_general *g, t_philo *p);
 void		limpiarlas(t_general *g);
 
