@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:31:06 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/08 21:26:40 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/08 22:48:45 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,24 @@ int	check_if_all_ate(t_philo *p, t_general *g)
 	int	finished_eating;
 
 	i = -1;
+	(void)p;
 	finished_eating = 0;
 	if (g->num_t_eat == -1)
 		return (0);
 	while (++i < g->num_philos)
 	{
-		pthread_mutex_lock(p[i].meal_lock);
-		if (p[i].eat_cont >= (size_t)g->num_t_eat)
+		pthread_mutex_lock(g->philos[i].meal_lock);
+// printf("\n debug HOLA%ld\n", g->philos[i].eat_cont);
+		if (g->philos[i].eat_cont >= (size_t)g->num_t_eat)
 			finished_eating++;
-		pthread_mutex_unlock(p[i].meal_lock);
+// printf("\n debug ADIOS %d\n", finished_eating);
+		pthread_mutex_unlock(g->philos[i].meal_lock);
 	}
 	if (finished_eating == g->num_philos)
 	{
-		pthread_mutex_lock(p[0].dead_lock);
+		pthread_mutex_lock(g->philos[0].dead_lock);
 		g->dead = 1;
-		pthread_mutex_unlock(p[0].dead_lock);
+		pthread_mutex_unlock(g->philos[0].dead_lock);
 		// printf("\ndebug PAKITA\n");
 		return (1); //por que coño sales pakita (Salas)
 	}

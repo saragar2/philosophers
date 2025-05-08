@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/08 21:34:07 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/08 22:48:55 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,21 @@ void lonchazo(t_general *g, t_philo *p)
     }
     pthread_mutex_lock(first);
     print_status("fork", g, p);
+    if (g->num_philos == 1)
+    {
+        pthread_mutex_unlock(first);
+        my_usleep(g->t_die);
+        return ;
+    }
     pthread_mutex_lock(second);
     print_status("fork", g, p);
     pthread_mutex_lock(p->meal_lock);
     print_status("eat", g, p);
     p->eating = 1;
+    // printf("\n debug CHAU? %ld\n", p->eat_cont);
     my_usleep(g->t_eat);
     p->eating = 0;
+    p->eat_cont++;
     p->last_meal = get_time();
     pthread_mutex_unlock(p->meal_lock);
     pthread_mutex_unlock(second);
