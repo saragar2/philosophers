@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/08 14:51:56 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:38:59 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_general
 	struct s_philo	*philos; //sin inicializar (malloc hecho en init_philos() pero sin contenido)
 	pthread_mutex_t	*forks;
 	struct s_philo	*pakita;
-	int				start;
+	u_int64_t		start;
 	int				end;
 	u_int64_t		stime;
 	int				dead;
@@ -60,9 +60,9 @@ typedef struct s_philo
 	u_int64_t			last_meal;
 	pthread_mutex_t		*right;
 	pthread_mutex_t		*left;
-	pthread_mutex_t		dead_lock;
-	pthread_mutex_t		meal_lock;
-	pthread_mutex_t		write_lock;
+	pthread_mutex_t		*dead_lock;
+	pthread_mutex_t		*meal_lock;
+	pthread_mutex_t		*write_lock;
 }				t_philo;
 
 // ------------------------------------------------------------init
@@ -90,7 +90,7 @@ int			f_strcmp(const char *s1, const char *s2);
 // ------------------------------------------------------------activities MODIFICA LOS ARGS PLS
 void		print_status(char *s, t_general *g, t_philo *p);
 void		comer_techo(size_t milis, t_general *g, t_philo *p);
-int			lonchazo(t_general *g, t_philo *p);
+void		lonchazo(t_general *g, t_philo *p);
 void		pintarlas(t_general *g, t_philo *p);
 void		limpiarlas(t_general *g);
 

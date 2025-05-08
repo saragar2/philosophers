@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:09:13 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/16 17:09:51 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/08 21:13:39 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ void	init_philos(t_general *g)
 	g->philos = malloc(sizeof(t_philo) * g->num_philos);
 	if (!g->philos)
 		print_error("Malloc error: philos"); //limpiar
+	g->philos[0].dead_lock = malloc(sizeof(pthread_mutex_t));
+	g->philos[0].meal_lock = malloc(sizeof(pthread_mutex_t));
+	g->philos[0].write_lock = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(g->philos[0].dead_lock, NULL);
+	pthread_mutex_init(g->philos[0].meal_lock, NULL);
+	pthread_mutex_init(g->philos[0].write_lock, NULL);
 	while (++i < g->num_philos)
 	{
 		g->philos[i].id = i + 1;
@@ -53,9 +59,10 @@ void	init_philos(t_general *g)
 		g->philos[i].eating = 0;
 		g->philos[i].last_meal = get_time();
 		g->philos[i].g = g;
-		pthread_mutex_init(&g->philos[i].dead_lock, NULL);
-		pthread_mutex_init(&g->philos[i].meal_lock, NULL);
-		pthread_mutex_init(&g->philos[i].write_lock, NULL);
+		g->philos[i].dead_lock = g->philos[0].dead_lock;
+		g->philos[i].meal_lock = g->philos[0].meal_lock;
+		g->philos[i].write_lock = g->philos[0].write_lock;
+		printf("%p\n", &g->philos[i].dead_lock);
 	}
 }
 
