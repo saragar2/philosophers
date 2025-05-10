@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:31:06 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/08 22:48:45 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:30:17 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	philosopher_dead(t_philo *p, size_t t_die)
 	// 	&& p->eating == 0) 
 	// if (get_time() - p->last_meal >= t_die)
 	// printf("\n debug HOLA SOY %d, Y LA RESTA ENTRE GET_TIME Y LAST MEAL ES %ld\n", p->id, get_time() - p->last_meal);
-	if (p->im_pakita == 0 && get_time() - p->last_meal >= t_die)
+	if (get_time() - p->last_meal >= t_die)
 		return (pthread_mutex_unlock(p->meal_lock), 1); //arreglala que está fea
 	pthread_mutex_unlock(p->meal_lock);
 	return (0);
@@ -39,7 +39,8 @@ int	check_if_dead(t_philo *p, t_general *g)
 		// pthread_mutex_unlock(p[0].dead_lock);
 		if (philosopher_dead(&p[i], g->t_die) == 1)
 		{
-			print_status("dead", g, p);
+			// printf("\nSOY %d Y HE MUERTO\n", p[i].id);
+			print_status("dead", g, &p[i]);
 			pthread_mutex_lock(p[0].dead_lock); //p[0]??
 			g->dead = 1;
 			pthread_mutex_unlock(p[0].dead_lock);
@@ -71,9 +72,9 @@ int	check_if_all_ate(t_philo *p, t_general *g)
 	if (finished_eating == g->num_philos)
 	{
 		pthread_mutex_lock(g->philos[0].dead_lock);
+		printf("\ndebug PAKITA-------------------------------------------\n");
 		g->dead = 1;
 		pthread_mutex_unlock(g->philos[0].dead_lock);
-		// printf("\ndebug PAKITA\n");
 		return (1); //por que coño sales pakita (Salas)
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:21:51 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/08 22:48:55 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:22:56 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,39 @@ void	print_status(char *s, t_general *g, t_philo *p)
 {
 	size_t	t;
 	
-    // printf("\n\nHOLA SOY EL %d\n", p->id);
-    // pthread_mutex_lock(g->philos[0].dead_lock);
-	    pthread_mutex_lock(p->dead_lock);
-    if (g->dead == 0)
-    {
-        t = get_time() - g->stime;
-        if (f_strcmp(s, "fork") == 0)
-            printf("%s[%lu] %d has taken a fork\n", PINK, t, p->id);
-        else if (f_strcmp(s, "eat") == 0)
-            printf("%s[%lu] %d is eating\n", BLUE, t, p->id);
-        else if (f_strcmp(s, "sleep") == 0)
-            printf("%s[%lu] %d is sleeping\n", GREEN, t, p->id);
-        else if (f_strcmp(s, "think") == 0)
-            printf("%s[%lu] %d is thinking\n", YELLOW, t, p->id);
-        else if (f_strcmp(s, "dead") == 0)
-            printf("%s[%lu] %d died\n", PURPLE, t, p->id);
-    }
+	// printf("\n\nHOLA SOY EL %d\n", p->id);
+	// pthread_mutex_lock(g->philos[0].dead_lock);
+	// pthread_mutex_lock(p->dead_lock);
+	// if (g->dead == 0)
+	// {
+	// 	t = get_time() - g->stime;
+	// 	if (f_strcmp(s, "fork") == 0)
+	// 		printf("%s[%lu] %d has taken a fork\n", PINK, t, p->id);
+	// 	else if (f_strcmp(s, "eat") == 0)
+	// 		printf("%s[%lu] %d is eating\n", BLUE, t, p->id);
+	// 	else if (f_strcmp(s, "sleep") == 0)
+	// 		printf("%s[%lu] %d is sleeping\n", GREEN, t, p->id);
+	// 	else if (f_strcmp(s, "think") == 0)
+	// 		printf("%s[%lu] %d is thinking\n", YELLOW, t, p->id);
+	// 	else if (f_strcmp(s, "dead") == 0)
+	// 		printf("%s[%lu] %d died\n", PURPLE, t, p->id);
+	// }
+	// pthread_mutex_unlock(p->dead_lock);
+	pthread_mutex_lock(p->dead_lock);
+	if (g->dead == 0)
+	{
+		t = get_time() - g->stime;
+		if (f_strcmp(s, "fork") == 0)
+			printf("%s%lu %d has taken a fork\n", YELLOW, t, p->id);
+		else if (f_strcmp(s, "eat") == 0)
+			printf("%s%lu %d is eating\n", PINK, t, p->id);
+		else if (f_strcmp(s, "sleep") == 0)
+			printf("%s%lu %d is sleeping\n", BLUE, t, p->id);
+		else if (f_strcmp(s, "think") == 0)
+			printf("%s%lu %d is thinking\n", GREEN, t, p->id);
+		else if (f_strcmp(s, "dead") == 0)
+			printf("%s%lu %d died\n", PURPLE, t, p->id);
+	}
 	pthread_mutex_unlock(p->dead_lock);
 }
 
@@ -74,14 +90,14 @@ void lonchazo(t_general *g, t_philo *p)
     }
     pthread_mutex_lock(second);
     print_status("fork", g, p);
-    pthread_mutex_lock(p->meal_lock);
     print_status("eat", g, p);
+    my_usleep(g->t_eat);
+    pthread_mutex_lock(p->meal_lock);
+    p->last_meal = get_time();
     p->eating = 1;
     // printf("\n debug CHAU? %ld\n", p->eat_cont);
-    my_usleep(g->t_eat);
     p->eating = 0;
     p->eat_cont++;
-    p->last_meal = get_time();
     pthread_mutex_unlock(p->meal_lock);
     pthread_mutex_unlock(second);
     pthread_mutex_unlock(first);

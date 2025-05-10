@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:16:25 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/08 19:17:19 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:32:58 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int	my_usleep(size_t milis)
 
 	start = get_time();
 	while ((get_time() - start) < milis)
-		usleep(1);
+		usleep(500);
 	return (0);
 }
