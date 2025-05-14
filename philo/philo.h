@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/14 19:20:29 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/14 21:49:42 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void		print_error(char *arg);
 // -------------------------------------------------------one_philo
 void		one_philo(t_general *g, t_philo *p);
 // -------------------------------------------------------threads
-int			philosopher_dead(t_philo *p, size_t t_die);
 int			check_if_dead(t_philo *p, t_general *g);
 int			check_if_all_ate(t_philo *p, t_general *g);
 void		*busybody_pakita(void *philovoid);
@@ -87,6 +86,8 @@ int			my_usleep(size_t milis);
 int			ft_isvalidnum(char *s);
 size_t		ft_atoi(const char *str);
 int			f_strcmp(const char *s1, const char *s2);
+void		hasta_el_tabique(t_general *g, t_philo *p);
+void		subroutine(t_philo *p);
 // -------------------------------------------------------activities
 void		print_status(char *s, t_general *g, t_philo *p);
 void		comer_techo(size_t milis, t_general *g, t_philo *p);

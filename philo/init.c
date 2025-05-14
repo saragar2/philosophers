@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:09:13 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/14 20:23:13 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/14 21:51:47 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	init_forks(t_general *g)
 	i = -1;
 	g->forks = malloc(sizeof(pthread_mutex_t) * g->num_philos);
 	if (!g->forks)
-		print_error("Malloc error: forks"); //Limpiar
+	{
+		limpiarlas(g);
+		print_error("Malloc error: forks");
+	}
 	while (++i < g->num_philos)
 		pthread_mutex_init(&g->forks[i], NULL);
 	g->philos[0].left = &g->forks[0];
@@ -41,7 +44,7 @@ void	init_philos(t_general *g)
 	i = -1;
 	g->philos = malloc(sizeof(t_philo) * g->num_philos);
 	if (!g->philos)
-		print_error("Malloc error: philos"); //limpiar
+		print_error("Malloc error: philos");
 	g->philos[0].dead_lock = malloc(sizeof(pthread_mutex_t));
 	g->philos[0].meal_lock = malloc(sizeof(pthread_mutex_t));
 	g->philos[0].write_lock = malloc(sizeof(pthread_mutex_t));

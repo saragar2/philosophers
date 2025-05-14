@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:18:26 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/14 19:25:37 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/14 21:45:43 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,39 @@ int	f_strcmp(const char *s1, const char *s2)
 	if (*s1 != *s2)
 		cont = (unsigned char)*s1 - (unsigned char)*s2;
 	return (cont);
+}
+
+void	hasta_el_tabique(t_general *g, t_philo *p)
+{
+	print_status("fork", g, p);
+	print_status("eat", g, p);
+	my_usleep(g->t_eat);
+	pthread_mutex_lock(p->meal_lock);
+	p->last_meal = get_time();
+	p->eat_cont++;
+	pthread_mutex_unlock(p->meal_lock);
+}
+
+void	subroutine(t_philo *p)
+{
+	pthread_mutex_lock(p->dead_lock);
+	if (p->g->dead == 0)
+	{
+		pthread_mutex_unlock(p->dead_lock);
+		lonchazo(p->g, p);
+		pthread_mutex_lock(p->dead_lock);
+	}
+	if (p->g->dead == 0)
+	{
+		pthread_mutex_unlock(p->dead_lock);
+		comer_techo(p->g->t_sleep, p->g, p);
+		pthread_mutex_lock(p->dead_lock);
+	}
+	if (p->g->dead == 0)
+	{
+		pthread_mutex_unlock(p->dead_lock);
+		pintarlas(p->g, p);
+		pthread_mutex_lock(p->dead_lock);
+	}
+	pthread_mutex_unlock(p->dead_lock);
 }
