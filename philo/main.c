@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:30:08 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/08 20:58:30 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/14 20:03:57 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,11 @@ void	print_error(char *arg)
 	exit(1);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_general g;
+	t_general	g;
 
-	// printf("\ndebug\n");
-	
 	init_and_errs(&g, argc, argv);
 	create_philos(&g);
 	limpiarlas(&g);
 }
-
-
-// -----NOTAS-----
-// Hay que hacer los free de todos los malloc en caso de error y al finalizar el programa
-// Hay que hacer la rutina y programar a pakita la cotilla
-// hay que hardcodear el caso del filosofo solo
-// como putas se usan g->philos y philo->thread????
-// Norminette
-// pakita no se está chivando cuando mueren
-// En el caso de one_philo saltan problemas (y ademas lo hace mal)
-// quita los putos mutex de t_philo y metelos en general, que sino con 200 philos hay 600 mutex (y se usan 3

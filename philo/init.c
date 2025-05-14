@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:09:13 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/08 21:13:39 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/14 20:23:13 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ int	init_forks(t_general *g)
 	i = -1;
 	g->forks = malloc(sizeof(pthread_mutex_t) * g->num_philos);
 	if (!g->forks)
-	{
-		free(g->forks);
-		print_error("Malloc error: forks"); //limpiar
-	}
+		print_error("Malloc error: forks"); //Limpiar
 	while (++i < g->num_philos)
 		pthread_mutex_init(&g->forks[i], NULL);
 	g->philos[0].left = &g->forks[0];
@@ -62,7 +59,6 @@ void	init_philos(t_general *g)
 		g->philos[i].dead_lock = g->philos[0].dead_lock;
 		g->philos[i].meal_lock = g->philos[0].meal_lock;
 		g->philos[i].write_lock = g->philos[0].write_lock;
-		printf("%p\n", &g->philos[i].dead_lock);
 	}
 }
 
@@ -70,9 +66,9 @@ int	init_and_errs(t_general *g, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		print_error("Invalid amount of arguments");
-	if (ft_isvalidnum(argv[1]) == 1 || ft_isvalidnum(argv[2]) == 1 || 
-		ft_isvalidnum(argv[3]) == 1 || ft_isvalidnum(argv[4]) == 1 ||
-		(argc == 6 && ft_isvalidnum(argv[5]) == 1))
+	if (ft_isvalidnum(argv[1]) == 1 || ft_isvalidnum(argv[2]) == 1
+		|| ft_isvalidnum(argv[3]) == 1 || ft_isvalidnum(argv[4]) == 1
+		|| (argc == 6 && ft_isvalidnum(argv[5]) == 1))
 		print_error("Invalid argument");
 	g->start = 0;
 	g->end = 0;

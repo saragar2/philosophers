@@ -6,7 +6,7 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:43:24 by saragar2          #+#    #+#             */
-/*   Updated: 2025/05/08 20:38:59 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:20:29 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 typedef struct s_general
 {
-	struct s_philo	*philos; //sin inicializar (malloc hecho en init_philos() pero sin contenido)
+	struct s_philo	*philos;
 	pthread_mutex_t	*forks;
 	struct s_philo	*pakita;
 	u_int64_t		start;
@@ -52,7 +52,7 @@ typedef struct s_philo
 	pthread_t			tid;
 	pthread_t			pakita_tid;
 	int					im_pakita;
-	int	    			id;
+	int					id;
 	struct s_general	*g;
 	pthread_t			thread; //sin inicializar
 	size_t				eat_cont;
@@ -65,29 +65,29 @@ typedef struct s_philo
 	pthread_mutex_t		*write_lock;
 }				t_philo;
 
-// ------------------------------------------------------------init
+// -------------------------------------------------------init
 int			init_forks(t_general *g);
 void		init_philos(t_general *g);
 int			init_and_errs(t_general *g, int argc, char **argv);
-// ------------------------------------------------------------main
+// -------------------------------------------------------main
 void		print_error(char *arg);
-// ------------------------------------------------------------one_philo
+// -------------------------------------------------------one_philo
 void		one_philo(t_general *g, t_philo *p);
-// ------------------------------------------------------------threads MODIFICA LOS ARGS PLS
+// -------------------------------------------------------threads
 int			philosopher_dead(t_philo *p, size_t t_die);
 int			check_if_dead(t_philo *p, t_general *g);
 int			check_if_all_ate(t_philo *p, t_general *g);
 void		*busybody_pakita(void *philovoid);
 void		*routine(void *philovoid);
 void		create_philos(t_general *g);
-// ------------------------------------------------------------time
-u_int64_t	get_time();
+// -------------------------------------------------------time
+u_int64_t	get_time(void);
 int			my_usleep(size_t milis);
-// ------------------------------------------------------------utils
-int 		ft_isvalidnum(char *s);
+// -------------------------------------------------------utils
+int			ft_isvalidnum(char *s);
 size_t		ft_atoi(const char *str);
 int			f_strcmp(const char *s1, const char *s2);
-// ------------------------------------------------------------activities MODIFICA LOS ARGS PLS
+// -------------------------------------------------------activities
 void		print_status(char *s, t_general *g, t_philo *p);
 void		comer_techo(size_t milis, t_general *g, t_philo *p);
 void		lonchazo(t_general *g, t_philo *p);

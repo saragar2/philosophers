@@ -6,19 +6,19 @@
 /*   By: saragar2 <saragar2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:18:26 by saragar2          #+#    #+#             */
-/*   Updated: 2025/04/16 16:59:19 by saragar2         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:25:37 by saragar2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int ft_isvalidnum(char *s)
+int	ft_isvalidnum(char *s)
 {
-    int i;
+	int	i;
 	int	res;
 
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] < '0' || s[i] > '9')
 			return (1);
