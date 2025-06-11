@@ -1,5 +1,0 @@
----Los filosofos pueden morir a mitad de menú
----Los atributos de filosofo de pakita no estás inicializados, no son necesarios (no?)
----Deberia reajustar los mutex para que no haya tantisimos creados
----No duermen el tiempo que se pide
----No mueren a pesar de que haya pasado el tiempo
